@@ -124,7 +124,8 @@ try:
             x = apn[num]
 except:
         print("Error at ", x)
-
+        df.to_csv("Virostek-Data-" + working_apn, index=False, header=True)
+        pass
    
 
 df.to_csv("Virostek-Data-" + working_apn, index=False, header=True)
