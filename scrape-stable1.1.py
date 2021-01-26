@@ -9,12 +9,12 @@ global nl
 nl = b'\n'
 
 working_apn = sys.argv[1]
-working_apn_path = "/home/Virotek-Scrape/apns/split-apns/" + working_apn
+working_apn_path = "apns/split-apns/" + working_apn
 
 
 global apn
 apn = []
-with open("working_apn_path, "r") as f:
+with open(working_apn_path, "r") as f:
 	for line in f:
 		line = line.strip("\n")
 		apn.append(line)
@@ -106,27 +106,28 @@ def tres_scrape(tres_link, apn_number, dict):
 ############################################################################
 
 count = 0
-for num in range(len(apn)):
-    data = ass_scrape(assesor_link, apn[num])
-    if data[1] == 1:
-        tres_scrape(treasury_link, apn[num], data[0])
-        print("SUCCESS on : ", apn[num], "\n\n")
-        count += 1
-        print(count)
+try:
 
-    if count % 20000 == 0:
-        df = pd.DataFrame.from_dict(dict, orient="columns")
+    for num in range(len(apn)):
+        data = ass_scrape(assesor_link, apn[num])
+        if data[1] == 1:
+            tres_scrape(treasury_link, apn[num], data[0])
+            print("SUCCESS on : ", apn[num], "\n\n")
+            count += 1
+            print(count)
 
-    else:
-        pass
+        if count % 500 == 0:
+            df = pd.DataFrame.from_dict(dict, orient="columns")
 
-else:
-    print("Failed on : ", apn[num], "\n\n")
-    count += 1
-    print(count)
-    pass
+        else:
+            pass
+            x = apn[num]
+except:
+        print("Error at ", x)
 
-df.to_csv("Virostek-Data-" + , index=False, header=True)
+   
+
+df.to_csv("Virostek-Data-" + working_apn, index=False, header=True)
 
 
 #############################################################################
